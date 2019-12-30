@@ -1,0 +1,35 @@
+stages:
+  - build
+  - deploy
+
+build cinep-front:
+  stage: build
+  image: node:11-alpine
+  cache:
+    paths:
+      - node_modules
+  artifacts:
+    paths:
+      - dist
+  tags:
+    - cinep-front
+  variables:
+    api: localhost/api
+  script:
+    - yarn install
+    - node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng build --prod
+  only:
+    refs:
+      - master
+
+deploy cinep-front:
+  stage: deploy
+  tags:
+    - cinep-front
+  script:
+    - mkdir -p ~/front-deployment
+    - rm -rf ~/front-deployment/*
+    - cp -r dist/cinep-front/. ~/front-deployment
+  only:
+    refs:
+      - master

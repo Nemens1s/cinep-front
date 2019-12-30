@@ -1,0 +1,29 @@
+<app-nav-bar></app-nav-bar>
+<hr>
+<div>
+  <h2>Welcome to profile page, {{user.username}}!</h2>
+  <p style="font-size: larger">Here you can see and delete your bookmarks.</p>
+</div>
+
+<div fxLayoutAlign="center center">
+  <h2 *ngIf="!hasBookmarks()" >It seems like you don't have any bookmarks yet</h2>
+  <mat-list class="mat-app-background">
+    <mat-list-item *ngFor="let title of bookmarks">
+      <br>
+      <h3 style="background-color: #8e24aa">{{title}}<img src="https://img.icons8.com/cotton/64/000000/delete-sign--v2.png" alt="delete" (click)="deleteBookmark(title)" width="32px" height="32px"></h3>
+      <br>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+
+<div *ngIf="user.role === 'ADMIN'">
+  <hr>
+  <h3>ADMIN AREA, YOU CAN DELETE USERS HERE.</h3>
+  <div fxLayoutAlign="center center">
+  <label for="delete">Enter user's name that you want to delete</label>
+  <input id="delete"  type="text" [(ngModel)]="nameToDelete" class="form-control">
+  <br>
+  <button mat-raised-button color="warn" (click)="deleteUser()">DELETE USER</button>
+  </div>
+</div>

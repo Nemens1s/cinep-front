@@ -1,0 +1,53 @@
+<app-nav-bar></app-nav-bar>
+<hr>
+<div class="center-left">
+  <mat-card-title>
+    Search For Movies
+  </mat-card-title>
+  <mat-card class="example-form">
+    <div>
+      <p>You can either look up movies by title or look which movies has one of the cinemas.</p>
+      <label for="title" class="mat-form-field">Please enter movie title</label>
+      <input id="title" [(ngModel)]="title" class="form-control">
+    </div>
+    <div>
+      <igx-time-picker format="HH:mm" [(ngModel)]="date" [minValue]="'09:00'" [maxValue]="'23:00'"></igx-time-picker>
+    </div>
+    <div>
+      <mat-form-field color="accent">
+        <mat-label>Select cinema</mat-label>
+        <mat-select [(value)]="theatre" class="theatre-select">
+          <mat-option value="Coca Cola Plaza">Coca-Cola-plaza</mat-option>
+          <mat-option value="T1">T1 Cinamon</mat-option>
+          <mat-option value="KOSMOS">Kosmos Cinamon</mat-option>
+          <mat-option value="Viimsi kino">Viimsi kino</mat-option>
+          <mat-option value="Artis">Kino Artis</mat-option>
+          <mat-option value="Apollo Kino Ülemiste">Apollo Kino Ülemiste</mat-option>
+          <mat-option value="Apollo Kino Solaris">Apollo Kino Solaris</mat-option>
+          <mat-option value="Apollo Kino Kristiine">Apollo Kino Kristiine</mat-option>
+          <mat-option value="Apollo Kino Mustamäe">Apollo Kino Mustamäe</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="showMovies()">Show movies</button>
+    <button *ngIf="movies.length > 0" mat-raised-button color="warn" (click)="clearMovies()">Clear Results</button>
+  </div>
+  </mat-card>
+</div>
+  <mat-list class="mat-app-background">
+    <mat-list-item *ngFor="let movie of movies" >
+      <div class="movie-details">
+      <h3 matLine >Title: {{movie.originalTitle}}</h3><button mat-raised-button color="accent" (click)="addToBookMarks(movie.originalTitle)" *ngIf="user">Add to bookmarks</button>
+      <h3 matLine>Time: {{movie.startTime}}: {{movie.startDate}}</h3>
+      <h3 matLine>Cinema: {{movie.theatre}}</h3>
+      <h3 matLine>Auditorium: {{movie.theatreAuditorium}}</h3>
+      <h3 matLine>Duration: {{movie.durationInMinutes}}</h3>
+      <h3 matLine>User rating: {{movie.userRating}}</h3>
+      <a matLine href="{{movie.showUrl}}">Link to buy tickets</a>
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+

@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+  <mat-toolbar-row *ngIf="user">
+    <span routerLink="/movies" style="font-size: 200%">Cinep</span>
+    <span fxFlex></span>
+    <a mat-button routerLink="/profile" style="font-size: 125%">Profile</a>
+    <a mat-button (click)="openDialog()" style="font-size: 125%">Log out</a>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="!user">
+  <span routerLink="/movies" style="font-size: 200%">Cinep</span>
+  <span fxFlex></span>
+    <a mat-button routerLink="/register" style="font-size: 125%">Register</a>
+    <a mat-button routerLink="/login" style="font-size: 125%">Sign in</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<app-quote></app-quote>
